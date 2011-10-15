@@ -62,6 +62,8 @@ None
 
 sudo gem install is_it_iphone
 
+NOTE! Dont't forget to add/uncomment line Mime::Type.register_alias "text/html", :iphone in RAILS_ROOT/config/initializers/mime_types.rb after gem being installed. Otherwise you'll get exception "undefined method `ref' for nil:NilClass" without backtrace.
+
 == LICENSE:
 
 Copyright (c) 2008
