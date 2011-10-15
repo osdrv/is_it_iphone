@@ -18,9 +18,27 @@ module IsItIPhone
   # should show the normal page and then give the user the option to see
   # it formatted for their iPhone.
   def adjust_format_for_iphone
-
-    if iphone_request? && File.exists?(File.join(RAILS_ROOT, 'app', 'views', self.controller_name, "#{self.action_name}.iphone.erb"))
+    if iphone_request? && controller_views_dir.grep(/#{action_name}\.iphone/).any?
       request.format = :iphone
     end
+  end
+
+private
+
+  def app_root
+    ::Rails.root.to_s
+  end
+  
+  def controller_views_dir
+    Dir.new(
+      File.expand_path(
+        File.join(
+          app_root,
+          "app",
+          "views",
+          self.controller_name
+        )
+      )
+    )
   end
 end

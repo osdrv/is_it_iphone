@@ -5,6 +5,7 @@ class IPhoneTestController
   include IsItIPhone
   class Request
     attr_reader :env
+    attr_accessor :format
     def initialize(user_agent)
       @env = { 'HTTP_USER_AGENT' => user_agent }
     end
@@ -16,13 +17,35 @@ class IPhoneTestController
 
     iphone_request?
   end
-
+  
+  def test_adjust_format(opts)
+    @request = Request.new(opts[:user_agent])
+    @params  = { :format => opts[:format] }
+    @action = opts[:action]
+    adjust_format_for_iphone
+    @request.format.to_s == "iphone"
+  end
+  
 private
   def request
     @request
   end
   def params
     @params
+  end
+  def app_root
+    File.expand_path(File.dirname(__FILE__))
+  end
+  def action_name
+    @action
+  end
+  def controller_views_dir
+    Dir.new(
+      File.expand_path(
+        File.dirname(__FILE__),
+        "views"
+      )
+    )
   end
 end
 
@@ -64,6 +87,22 @@ class TestIsItIPhone < Test::Unit::TestCase
 
   def test_pc_override
     assert @controller.test(MAC_FIREFOX, "iphone")
+  end
+  
+  def test_adjust_format_for_iphone_desktop
+    assert !@controller.test_adjust_format(:action => "test", :user_agent => MAC_SAFARI), "desktop erb"
+  end
+  
+  def test_adjust_format_for_iphone_iphone
+    assert @controller.test_adjust_format(:action => "test", :user_agent => IPHONE_1_4), "iphone erb"
+  end
+  
+  def test_adjust_format_for_iphone_desktop_haml
+    assert !@controller.test_adjust_format(:action => "test2", :user_agent => MAC_SAFARI), "desktop haml"
+  end
+  
+  def test_adjust_format_for_iphone_iphone_haml
+    assert @controller.test_adjust_format(:action => "test2", :user_agent => IPHONE_1_4), "iphone haml"
   end
 end
 
