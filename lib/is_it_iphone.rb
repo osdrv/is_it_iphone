@@ -4,7 +4,8 @@ module IsItIPhone
   # Returns true if the request USER AGENT came from an iPhone
   # (specfications from http://developer.apple.com)
   def iphone_user_agent?
-    !!(request.env['HTTP_USER_AGENT'] && request.env['HTTP_USER_AGENT'][/(Mobile\/.+Safari)/])
+    # !!(request.env['HTTP_USER_AGENT'] && request.env['HTTP_USER_AGENT'][/(Mobile\/.+Safari)/])
+    !!request.user_agent.to_s.downcase.match(/iphone|ipod|ipad|mobileexplorer|android|mobile\/.+safari/)
   end
 
   # Returns true if the request or format parameter came from an iPhone
