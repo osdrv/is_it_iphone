@@ -1,16 +1,16 @@
-= is_it_iphone
+# is_it_iphone
 * http://rubyforge.org/projects/isitiphone/
 
-== AUTHOR:
+## AUTHOR:
 
 Damon Danieli (damondanieli@gmail.com)
 
-== FEATURES/PROBLEMS:
+## FEATURES/PROBLEMS:
 
 * Fast & Lightweight
 * Simple: I'm not smart enough to make something complex
 
-== DESCRIPTION:
+## DESCRIPTION:
 
 This gem was inspired by the IsItMobile gem done by Dave Myron.  
 
@@ -54,17 +54,17 @@ Then, just create your views using suffices of iphone.erb instead of html.erb:
 
 Note: you will probably want to use a Web library specific for iPhone applications.  FWIW, I use Dashcode (in the iPhone SDK) to write and debug the iPhone application and then integrate it with my Rails project.
 
-== REQUIREMENTS:
+## REQUIREMENTS:
 
 None
 
-== INSTALL:
+## INSTALL:
 
 sudo gem install is_it_iphone
 
 NOTE! Dont't forget to add/uncomment line Mime::Type.register_alias "text/html", :iphone in RAILS_ROOT/config/initializers/mime_types.rb after gem being installed. Otherwise you'll get exception "undefined method `ref' for nil:NilClass" without backtrace.
 
-== LICENSE:
+## LICENSE:
 
 Copyright (c) 2008
 
