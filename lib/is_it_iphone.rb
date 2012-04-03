@@ -19,7 +19,7 @@ module IsItIPhone
   # should show the normal page and then give the user the option to see
   # it formatted for their iPhone.
   def adjust_format_for_iphone
-    if iphone_request? && controller_views_dir.grep(/#{action_name}\.iphone/).any?
+    if iphone_request? && controller_views_dir.grep(/#{params[:action]}\.iphone/).any?
       request.format = :iphone
     end
   end
@@ -37,7 +37,7 @@ private
           app_root,
           "app",
           "views",
-          self.controller_name
+          params[:controller]
         )
       )
     )
